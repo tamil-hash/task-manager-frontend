@@ -5,6 +5,7 @@ interface Props {
 
 const Form = ({ onSubmit, children }: Props) => {
   const onFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     console.log(event);
   };
 
