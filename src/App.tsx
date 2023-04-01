@@ -1,12 +1,14 @@
 //components
-import UnAuthRoutes from "./components/routes/UnAuthRoutes"
-import AuthRoutes from "./components/routes/AuthRoutes"
+import UnAuthRoutes from "./components/routes/UnAuthourized.routes";
+import AuthRoutes from "./components/routes/Authourized.routes";
 
 const App = () => {
-  return <>
-    <UnAuthRoutes />
-    {/* <AuthRoutes /> */}
-  </>
+  return (
+    <>
+      <UnAuthRoutes />
+      {/* <AuthRoutes /> */}
+    </>
+  );
 }
 
-export default App
+export default App;
