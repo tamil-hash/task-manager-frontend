@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Form, Input, Button, Typography } from "antd";
+import { Form, Input, Button, message,Typography } from "antd";
 import { Link,useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 //components
 import UnAuthourizedLayout from "../../../layouts/UnauthourizedLayout/UnAuthourziedLayout";
-
+import Message from "../../../common/Message/Message";
 //api
 import axiosInstance from "../../../../utils/axios";
 import { setUserDetails } from "../../../../store/authSlice";
@@ -27,8 +27,12 @@ const Login = () => {
       const loginData = await axiosInstance.post("login", loginUserData);
       dispatch(setUserDetails(loginData.data));
       navigate("/tasks");
+      message.success("Logged In successfully.");
     }catch(error){
       console.log(error)
+      if(error.response.status===400){
+        message.error("User doesn't exist")
+      }
     }finally{
       setIsLoading(false);
     }
