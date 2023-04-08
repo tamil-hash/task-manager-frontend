@@ -1,35 +1,74 @@
-import { Form, Input, Button } from "antd";
-
+import { useState } from "react";
+import { Form, Input, Button, Typography } from "antd";
+import { Link,useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 //components
 import UnAuthourizedLayout from "../../../layouts/UnauthourizedLayout/UnAuthourziedLayout";
 
+//api
+import axiosInstance from "../../../../utils/axios";
+import { setUserDetails } from "../../../../store/authSlice";
 
-const Login  =  () => {
-    return (
-      <UnAuthourizedLayout title="Login">
-        <Form.Item
-          label="Email"
-          name="email"
-          rules={[{ required: true, message: "Please input your Email" }]}
-        >
-          <Input size="large" type="email" placeholder="Email" />
-        </Form.Item>
+const { Text } = Typography;
 
-        <Form.Item
-          label="Password"
-          name="password"
-          rules={[{ required: true, message: "Please input your password!" }]}
-        >
-          <Input.Password size="large" placeholder="Password" />
-        </Form.Item>
+const Login = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </UnAuthourizedLayout>
-    );
-}
+
+  const onFormSubmit = async (loginUserData: {
+    email: string;
+    password: string;
+  }) => {
+    try{
+
+      setIsLoading(true);
+      const loginData = await axiosInstance.post("login", loginUserData);
+      dispatch(setUserDetails(loginData.data));
+      navigate("/tasks");
+    }catch(error){
+      console.log(error)
+    }finally{
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <UnAuthourizedLayout title="Login" onSubmit={onFormSubmit}>
+      <Form.Item
+        label="Email"
+        name="email"
+        rules={[
+          { required: true, message: "Please Enter your Email" },
+          {
+            type: "email",
+            message: "Please enter a valid email",
+          },
+        ]}
+      >
+        <Input type="email" placeholder="Email" />
+      </Form.Item>
+
+      <Form.Item
+        label="Password"
+        name="password"
+        rules={[{ required: true, message: "Please Enter your password!" }]}
+      >
+        <Input.Password placeholder="Password" />
+      </Form.Item>
+
+      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <Button loading={isLoading} type="primary" htmlType="submit">
+          Login
+        </Button>
+      </Form.Item>
+      <Text key="1">
+        New User?&nbsp;
+        <Link to="/signup">Signup</Link>
+      </Text>
+    </UnAuthourizedLayout>
+  );
+};
 
 export default Login;
