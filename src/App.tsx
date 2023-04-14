@@ -1,19 +1,17 @@
-
 //components
 import UnAuthRoutes from "./components/routes/UnAuthourized.routes";
 import AuthRoutes from "./components/routes/Authourized.routes";
 
 import { useSelector } from "react-redux";
 
-
 const App = () => {
   const authToken = useSelector((state) => state.auth.token);
 
-  if (authToken=== "") {
+  if (authToken === "") {
     return <UnAuthRoutes />;
   }
 
-  return  <AuthRoutes />;
-}
+  return <AuthRoutes />;
+};
 
 export default App;

@@ -1,5 +1,12 @@
+import AuthourizedLayout from "../../../layouts/AuthourizedLayout";
+
 const AllTasks = () => {
-    return <h1>tasks</h1>;
-}
+  console.log("akk asksa")
+  return (
+    <AuthourizedLayout>
+      <h1>tasks</h1>
+    </AuthourizedLayout>
+  );
+};
 
 export default AllTasks;

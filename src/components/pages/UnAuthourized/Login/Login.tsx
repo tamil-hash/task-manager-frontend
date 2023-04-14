@@ -4,7 +4,7 @@ import { Link,useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 //components
 import UnAuthourizedLayout from "../../../layouts/UnauthourizedLayout/UnAuthourziedLayout";
-import Message from "../../../common/Message/Message";
+
 //api
 import axiosInstance from "../../../../utils/axios";
 import { setUserDetails } from "../../../../store/authSlice";

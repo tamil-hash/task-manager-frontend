@@ -8,7 +8,7 @@ interface Props {
   onSubmit: (e: { email: string; password: string }) => void;
 }
 
-const UnAuthourizedLayout = ({ title, children,onSubmit }: Props) => {
+const UnAuthourizedLayout = ({ title, children, onSubmit }: Props) => {
   return (
     <div className={ModuleCss.container}>
       <Header />

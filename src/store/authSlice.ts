@@ -24,12 +24,17 @@ export const authSlice = createSlice({
       state.mail = action.payload.mail;
       state.token = action.payload.token;
       state.id = action.payload.id;
-      console.log(state)
     },
+    logout: (state) =>{
+      state.name = "";
+      state.mail = "";
+      state.token = "";
+      state.id = "";
+    }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setUserDetails } = authSlice.actions
+export const { setUserDetails ,logout} = authSlice.actions
 
 export default authSlice.reducer;

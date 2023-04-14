@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, Input, Button, Typography } from "antd";
+import { Form, Input, Button, Typography, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -25,7 +25,16 @@ const Signup = () => {
       const loginData = await axiosInstance.post("signup", userData);
       dispatch(setUserDetails(loginData.data));
       navigate("/tasks");
+      message.success("User Account Created Successfully.");
     } catch (error) {
+
+      if (error.response.status === 409) {
+        message.error("User Already exist.");
+      }else{
+        message.error("Something went wrong. Please try again.");
+      }
+
+
       console.log(error);
     } finally {
       setIsLoading(false);
