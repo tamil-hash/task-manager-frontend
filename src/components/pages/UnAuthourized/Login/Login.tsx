@@ -26,12 +26,13 @@ const Login = () => {
       setIsLoading(true);
       const loginData = await axiosInstance.post("login", loginUserData);
       dispatch(setUserDetails(loginData.data));
+      localStorage.setItem("refreshToken",loginData.data.refreshToken)
       navigate("/tasks");
       message.success("Logged In successfully.");
     }catch(error){
       console.log(error)
       if(error.response.status===400){
-        message.error("User doesn't exist")
+        message.error("Invalid Credentials")
       }
     }finally{
       setIsLoading(false);

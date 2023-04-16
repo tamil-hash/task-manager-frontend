@@ -1,4 +1,4 @@
-import { Button, Dropdown, Space } from "antd";
+import { Button, Dropdown, Space,message } from "antd";
 import { Link } from "react-router-dom";
 import type { MenuProps } from "antd";
 import { UserOutlined } from "@ant-design/icons";
@@ -18,10 +18,15 @@ const AuthourizedLayout = ({ children }: Props) => {
   const userName = useSelector((state) => state.auth.name);
   const dispatch = useDispatch();
 
+  const onLogout = () => {
+    dispatch(logout())
+    message.success("Logged out Successfully.")
+  }
+
   const items: MenuProps["items"] = [
     {
       key: "1",
-      label: <Button onClick={()=>dispatch(logout())} >logout</Button>,
+      label: <Button onClick={onLogout} >logout</Button>,
     }, 
   ];
 
