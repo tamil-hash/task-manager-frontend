@@ -1,5 +1,5 @@
-import { Button, Dropdown, Space,message } from "antd";
-import { Link } from "react-router-dom";
+import { Button, Dropdown, Space, message } from "antd";
+import { NavLink } from "react-router-dom";
 import type { MenuProps } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,15 +19,15 @@ const AuthourizedLayout = ({ children }: Props) => {
   const dispatch = useDispatch();
 
   const onLogout = () => {
-    dispatch(logout())
-    message.success("Logged out Successfully.")
-  }
+    dispatch(logout());
+    message.success("Logged out Successfully.");
+  };
 
   const items: MenuProps["items"] = [
     {
       key: "1",
-      label: <Button onClick={onLogout} >logout</Button>,
-    }, 
+      label: <Button onClick={onLogout}>logout</Button>,
+    },
   ];
 
   return (
@@ -38,12 +38,36 @@ const AuthourizedLayout = ({ children }: Props) => {
         </div>
         <div className={ModuleCss.rightPanel}>
           <ul className={ModuleCss.listItems}>
-            <Link to="/tasks" ><li>Your Tasks</li></Link>
-            <Link to="create-new-task" ><li>Create New Task</li></Link>
+            <li>
+              <NavLink
+                to="/tasks"
+                className={({isActive}) =>
+                  isActive
+                    ? [ModuleCss.navLink, ModuleCss.active].join(" ")
+                    : ModuleCss.navLink
+                }
+              >
+                Your Tasks
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink
+                to="/create-new-task"
+                className={({isActive}) =>
+                  isActive
+                    ? [ModuleCss.navLink, ModuleCss.active].join(" ")
+                    : ModuleCss.navLink
+                }
+              >
+                Create New Task
+              </NavLink>
+            </li>
+
             <li>
               <Dropdown menu={{ items }}>
                 <Space>
-                  <UserOutlined/>
+                  <UserOutlined />
                   {userName}
                 </Space>
               </Dropdown>
@@ -51,6 +75,7 @@ const AuthourizedLayout = ({ children }: Props) => {
           </ul>
         </div>
       </div>
+      <div className={ModuleCss.body}>{children}</div>
     </div>
   );
 };

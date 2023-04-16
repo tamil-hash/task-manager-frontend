@@ -18,15 +18,41 @@
         }
         .rightPanel{
             width:80%;
+            height:100%;
+            display: flex;
+            justify-content: end;
+            align-items: center;
             .listItems{
                 display: flex;
                 justify-content: end;
+                align-items: center;
+                height:100%;
+                a{
+                    height:100%;
+                    display: flex;
+                    align-items: center;
+                    padding: 10px;
+                    color: #fff;
+                    text-decoration: none;
+                }
                 li{
+                    height:100%;
+                    display: flex;
                     text-transform: capitalize;
                     color:#fff;
                     margin-left: 20px;
+                    .navLink{
+                        &.active{
+                            background-color: #1677FF;
+                        }
+                    }
                 }
             }
         }
+    }
+    .body{
+        width:100%;
+        height: calc(100% - 60px);
+        padding:20px;
     }
 }
