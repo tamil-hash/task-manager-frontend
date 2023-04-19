@@ -13,7 +13,7 @@ import axiosInstance from "./utils/axios";
 
 const App = () => {
   const [loading, setLoading] = useState(false);
-  const authToken = useSelector((state) => state.auth.token);
+  const authToken = useSelector((state:any) => state.auth.token);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -27,7 +27,7 @@ const App = () => {
         localStorage.setItem("refreshToken",data.data.refreshToken);
         message.success("Logged In successfully.");
     }
-  } catch (error) {
+  } catch (error:any) {
       if(error.response.status===406){
         message.error("Session expired.Please login again")
       }
