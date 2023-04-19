@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const AllTasks = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const token: string = useSelector((state) => state.auth.token);
+  const token: string = useSelector((state:any) => state.auth.token);
 
   const onChange = (key: string) => {
     console.log(key);

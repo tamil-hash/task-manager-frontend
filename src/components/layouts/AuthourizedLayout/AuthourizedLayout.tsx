@@ -15,7 +15,7 @@ interface Props {
 }
 
 const AuthourizedLayout = ({ children }: Props) => {
-  const userName = useSelector((state) => state.auth.name);
+  const userName = useSelector((state:any) => state.auth.name);
   const dispatch = useDispatch();
 
   const onLogout = () => {

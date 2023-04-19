@@ -29,7 +29,7 @@ const Login = () => {
       localStorage.setItem("refreshToken",loginData.data.refreshToken)
       navigate("/tasks");
       message.success("Logged In successfully.");
-    }catch(error){
+    }catch(error:any){
       console.log(error)
       if(error.response.status===400){
         message.error("Invalid Credentials")

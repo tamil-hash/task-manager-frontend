@@ -7,9 +7,9 @@ import "./createTask.module.scss";
 import { useNavigate } from "react-router-dom";
 const CreateTask = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const userId = useSelector((state) => state.auth.id);
+  const userId = useSelector((state:any) => state.auth.id);
   const navigate = useNavigate();
-  const onSubmit = async (data) => {
+  const onSubmit = async (data:any) => {
     try {
       setIsLoading(true);
 

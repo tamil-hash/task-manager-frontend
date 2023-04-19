@@ -26,7 +26,7 @@ const Signup = () => {
       dispatch(setUserDetails(loginData.data));
       navigate("/tasks");
       message.success("User Account Created Successfully.");
-    } catch (error) {
+    } catch (error:any) {
 
       if (error.response.status === 409) {
         message.error("User Already exist.");
