@@ -1,7 +1,8 @@
+import { Card } from "antd";
 import MoudleCss from "./TaskCard.module.scss";
 
 const TaskCard = () => {
-    return <h1>TaskCard</h1>
+    return <Card></Card>
 }
 
 export default TaskCard;

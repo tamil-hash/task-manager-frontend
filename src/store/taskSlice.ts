@@ -13,8 +13,8 @@ const initialState: taskState = {
   completedList:[],
 };
 
-export const authSlice = createSlice({
-  name: "auth",
+export const taskSlice = createSlice({
+  name: "tasks",
   initialState,
   reducers: {
     setTasks: (state: taskState, action: PayloadAction<Array<Object>>) => {
@@ -41,6 +41,6 @@ export const authSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setTasks } = authSlice.actions;
+export const { setTasks } = taskSlice.actions;
 
-export default authSlice.reducer;
+export default taskSlice.reducer;

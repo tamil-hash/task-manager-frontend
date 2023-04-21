@@ -2,40 +2,44 @@ import { Tabs, message } from "antd";
 import type { TabsProps } from "antd";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../../../utils/axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import TasksTab from "./TasksTab";
+import { setTasks } from "../../../../store/taskSlice";
 
 const AllTasks = () => {
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
-  const token: string = useSelector((state:any) => state.auth.token);
-
-  const onChange = (key: string) => {
-    console.log(key);
-  };
+  const token: string = useSelector((state: any) => state.auth.token);
+  const todoList = useSelector((state: any) => state.task.todoList);
+  const inprogressList = useSelector((state: any) => state.task.inprogressList);
+  const completedList = useSelector((state: any) => state.task.completedList);
 
   const items: TabsProps["items"] = [
     {
       key: "1",
       label: `Todo`,
-      children: `Content of Tab Pane 1`,
+      children: <TasksTab isLoading={isLoading} taskType="Todo" tasks={todoList} />,
     },
     {
       key: "2",
       label: `Inprogress`,
-      children: `Content of Tab Pane 2`,
+      children: <TasksTab taskType="Todo" tasks={inprogressList} />,
     },
     {
       key: "3",
       label: `Completed`,
-      children: `Content of Tab Pane 3`,
+      children: <TasksTab taskType="Todo" tasks={completedList} />,
     },
   ];
 
   const fetchTasks = async () => {
     try {
       setIsLoading(true);
-      const data = await axiosInstance.get("/tasks/fetch", {
+      const response = await axiosInstance.get("/tasks/fetch", {
         headers: { token },
       });
+
+      dispatch(setTasks(response.data));
     } catch (error) {
       console.log(error);
       message.error("Something went wrong.Please Try again");
@@ -48,7 +52,9 @@ const AllTasks = () => {
     fetchTasks();
   }, []);
 
-  return <Tabs defaultActiveKey="1" items={items} onChange={onChange} />;
+  
+
+  return <Tabs defaultActiveKey="1" items={items} />;
 };
 
 export default AllTasks;
