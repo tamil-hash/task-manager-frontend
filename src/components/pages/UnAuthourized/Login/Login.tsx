@@ -22,7 +22,6 @@ const Login = () => {
     password: string;
   }) => {
     try{
-
       setIsLoading(true);
       const loginData = await axiosInstance.post("login", loginUserData);
       dispatch(setUserDetails(loginData.data));

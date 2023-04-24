@@ -23,12 +23,12 @@ const AllTasks = () => {
     {
       key: "2",
       label: `Inprogress`,
-      children: <TasksTab taskType="Todo" tasks={inprogressList} />,
+      children: <TasksTab taskType="In Progress" tasks={inprogressList} />,
     },
     {
       key: "3",
       label: `Completed`,
-      children: <TasksTab taskType="Todo" tasks={completedList} />,
+      children: <TasksTab taskType="Completed" tasks={completedList} />,
     },
   ];
 

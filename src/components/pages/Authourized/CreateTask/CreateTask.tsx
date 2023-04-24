@@ -1,24 +1,45 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axiosInstance from "../../../../utils/axios";
 //components
 import { Card, Form, Input, Button, InputNumber, Select, message } from "antd";
 import "./createTask.module.scss";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 const CreateTask = () => {
+  const [form] = Form.useForm();
+  const location = useLocation();
+  const isEdit = location.pathname.includes("edit");
+  ``;
+  const selectedTask = useSelector((state: any) => state.task.selectedTask);
+  console.log(selectedTask);
   const [isLoading, setIsLoading] = useState(false);
-  const userId = useSelector((state:any) => state.auth.id);
+  const userId = useSelector((state: any) => state.auth.id);
   const navigate = useNavigate();
-  const onSubmit = async (data:any) => {
+  const token = useSelector((state: any) => state.auth.token);
+
+  const onSubmit = async (data: any) => {
     try {
+      const url = isEdit ? "edit":"create";
       setIsLoading(true);
 
-      await axiosInstance.post("/tasks/create", {
-        ...data,
-        time: `${data.timer} ${data.timerFormat}`,
-        createdBy: userId,
-      });
-      message.success("Task created Successfully.");
+      await axiosInstance.post(
+        `/tasks/${url}`,
+        {
+          ...data,
+          time: `${data.timer} ${data.timerFormat}`,
+          createdBy: userId,
+          _id:selectedTask._id
+        },
+        {
+          headers: { token },
+        }
+      );
+      if(isEdit){
+        message.success("Task edited Successfully.");
+
+      }else{
+        message.success("Task created Successfully.");
+      }
       navigate("/tasks");
     } catch {
       console.log("error");
@@ -27,13 +48,33 @@ const CreateTask = () => {
       setIsLoading(false);
     }
   };
+  let initialValues = {};
+
+  if (isEdit) {
+    const { name, description, priority, time } = selectedTask;
+    const [timer,timerFormat] = time.split(" ")
+
+    initialValues = {
+      taskName: name,
+      taskDescription: description,
+      priority,
+      timer,
+      timerFormat
+    };
+  }
+
+  useEffect(() => {
+    form.setFieldsValue(initialValues);
+  }, [form, initialValues]);
 
   return (
     <Card title="Create New Task">
       <Form
+        form={form}
         labelCol={{ span: 24 }}
         wrapperCol={{ span: 24 }}
         onFinish={onSubmit}
+        initialValues={initialValues}
       >
         <Form.Item
           label="Task Name"
@@ -54,12 +95,12 @@ const CreateTask = () => {
         <Form.Item
           label="Select the priority"
           name="priority"
-          rules={[{ required: true, message: "Please Select the proirity" }]}
+          rules={[{ required: true, message: "Please Select the priority" }]}
         >
           <Select>
-            <Select.Option value="low">Low Proirity</Select.Option>
-            <Select.Option value="medium">Medium Proirity</Select.Option>
-            <Select.Option value="high">High Proirity</Select.Option>
+            <Select.Option value="low">Low priority</Select.Option>
+            <Select.Option value="medium">Medium priority</Select.Option>
+            <Select.Option value="high">High priority</Select.Option>
           </Select>
         </Form.Item>
         <Form.Item
@@ -84,7 +125,7 @@ const CreateTask = () => {
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button loading={isLoading} type="primary" htmlType="submit">
-            Create Task
+            {isEdit?"Edit task":"Create task"}
           </Button>
         </Form.Item>
       </Form>

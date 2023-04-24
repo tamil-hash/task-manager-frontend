@@ -14,6 +14,7 @@ const AuthRoutes = () => {
         <Routes>
           <Route path="/tasks" element={<AllTasks />} />
           <Route path="/create-new-task" element={<CreateNewTask />} />
+          <Route path="/edit-task" element={<CreateNewTask />} />
           <Route path="*" element={<Navigate to="/tasks" />} />
         </Routes>
       </Suspense>
