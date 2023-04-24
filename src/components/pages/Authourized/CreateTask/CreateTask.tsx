@@ -9,9 +9,7 @@ const CreateTask = () => {
   const [form] = Form.useForm();
   const location = useLocation();
   const isEdit = location.pathname.includes("edit");
-  ``;
   const selectedTask = useSelector((state: any) => state.task.selectedTask);
-  console.log(selectedTask);
   const [isLoading, setIsLoading] = useState(false);
   const userId = useSelector((state: any) => state.auth.id);
   const navigate = useNavigate();

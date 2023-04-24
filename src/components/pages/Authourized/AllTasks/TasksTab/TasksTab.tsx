@@ -118,11 +118,11 @@ const TasksTab = ({ tasks, taskType, isLoading }: Props) => {
     if (format === "months") {
       gg = +totalTime * 86400000 * 30;
     }
-    console.log(gg)
+
     return gg;
   };
 
-  const renderer = ({ hours, minutes, seconds, completed }) => {
+  const renderer = ({ hours, minutes, seconds, completed }:any) => {
     if (completed) {
       // Render a completed state
       return <b style={{color:"red"}} >Time Over</b>;
@@ -157,7 +157,6 @@ const TasksTab = ({ tasks, taskType, isLoading }: Props) => {
                   </p>
                 ),
               };
-        console.log(tasks);
         return (
           <Card
             key={task._id}
@@ -179,7 +178,6 @@ const TasksTab = ({ tasks, taskType, isLoading }: Props) => {
               ),
             ]}
           >
-            {console.log(new Date().getMilliseconds())}
             {task.status === "inprogress" && (
               <>
                 <Progress percent={task.progress} style={{ marginRight: 8 }} />
