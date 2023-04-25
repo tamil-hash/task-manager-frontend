@@ -30,7 +30,7 @@ const Login = () => {
       message.success("Logged In successfully.");
     }catch(error:any){
       console.log(error)
-      if(error.response.status===400){
+      if(error.response.status===406){
         message.error("Invalid Credentials")
       }
     }finally{
